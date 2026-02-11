@@ -1,70 +1,77 @@
 # 🦞 OpenClaw Ecosystem Dashboard
 
-Live, auto-updating dashboard for the OpenClaw ecosystem.
+A real-time public dashboard showing what's happening in the OpenClaw (formerly Clawdbot/Moltbot) ecosystem.
 
-## Deploy in 3 Steps (No Coding Required)
+**Live data pulled automatically from:**
+- GitHub API — stars, forks, issues, commits, releases, contributors
+- npm API — download counts (weekly + monthly)
+- Ecosystem stats — ClawHub skills, Moltbook agents, supported channels
 
-### Step 1: Create a GitHub repo
-1. Go to **[github.com/new](https://github.com/new)**
-2. Name it `openclaw-dashboard`
-3. Check **"Add a README file"**
-4. Click **Create repository**
-
-### Step 2: Add the files
-In your new repo, you need to create **6 files**. For each one:
-1. Click **"Add file" → "Create new file"**
-2. Type the **exact filename** shown below (including any `/` slashes — GitHub creates folders automatically!)
-3. Paste the contents
-4. Click **"Commit changes"**
-
-The 6 files to create:
-
-| Type this as the filename | What it does |
-|---|---|
-| `package.json` | Tells Vercel what to install |
-| `next.config.js` | Next.js settings |
-| `jsconfig.json` | Path settings |
-| `vercel.json` | Vercel settings |
-| `app/layout.js` | Page wrapper + fonts |
-| `app/api/stats/route.js` | Fetches live data from GitHub + npm |
-| `app/page.js` | The dashboard itself |
-
-> **Tip:** When you type `app/layout.js` as the filename, GitHub will automatically create the `app` folder for you. Same for `app/api/stats/route.js` — it creates all the folders.
-
-### Step 3: Deploy on Vercel
-1. Go to **[vercel.com](https://vercel.com)** and sign in with GitHub
-2. Click **"Add New → Project"**
-3. Find and import `openclaw-dashboard`
-4. Click **Deploy**
-5. Wait ~60 seconds
-6. Your dashboard is live! 🎉
+Auto-refreshes every 5 minutes. No database needed. No config needed.
 
 ---
 
-## Optional: Avoid Rate Limits
+## 🚀 Deploy to Vercel (One Click)
 
-The dashboard works immediately, but GitHub limits anonymous requests. To fix:
+### Option A: The easiest way
+1. Push this entire folder to a new GitHub repo
+2. Go to [vercel.com/new](https://vercel.com/new)
+3. Import your repo
+4. Click **Deploy**
+5. Done! Your dashboard is live.
+
+### Option B: From your terminal
+```bash
+# Install Vercel CLI (one time)
+npm install -g vercel
+
+# From inside this folder:
+vercel
+```
+
+That's it. Follow the prompts and your dashboard will be live at a URL like `openclaw-dashboard.vercel.app`.
+
+---
+
+## ⚡ Optional: Increase GitHub API Limits
+
+By default, the dashboard works without any configuration. But GitHub limits anonymous API requests to 60/hour. If you get rate-limited:
 
 1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
-2. Click **"Generate new token (classic)"**
-3. Give it any name, no special permissions needed
-4. Copy the token
-5. In Vercel: **Settings → Environment Variables**
-6. Add `GITHUB_TOKEN` with your token as the value
-7. Redeploy
+2. Create a new **Fine-grained token** (no special permissions needed — public repo access is enough)
+3. In your Vercel dashboard, go to **Settings → Environment Variables**
+4. Add: `GITHUB_TOKEN` = your token
+5. Redeploy
+
+This gives you 5,000 requests/hour instead of 60.
 
 ---
 
-## What It Shows
+## 🧑‍💻 Run Locally
 
-- ⭐ GitHub stars, forks, watchers, issues (live)
-- 📦 npm downloads — weekly + monthly with chart (live)
-- 📈 Commit activity chart (live)
-- 🏷️ Recent releases timeline (live)
-- 🔄 Latest commits feed with authors (live)
-- 👥 Top contributors with avatars (live)
-- 🧩 ClawHub skills count
-- 🤖 Moltbook agent count
-- 📡 Supported messaging channels
+```bash
+npm install
+npm run dev
+```
 
-Everything refreshes automatically every 5 minutes.
+Open [http://localhost:3000](http://localhost:3000).
+
+---
+
+## What's on the Dashboard
+
+| Section | Source | Updates |
+|---------|--------|---------|
+| ⭐ Stars / Forks / Issues / Watchers | GitHub API | Every 5 min |
+| 📦 npm Downloads (7d + 30d) | npm API | Every 5 min |
+| 📊 Weekly download chart | npm API | Every 5 min |
+| 📈 Commit activity chart | GitHub API | Every 5 min |
+| 🏷️ Recent releases | GitHub API | Every 5 min |
+| 🔄 Latest commits feed | GitHub API | Every 5 min |
+| 👥 Top contributors | GitHub API | Every 5 min |
+| 🧩 ClawHub skills | Static (updated periodically) | Manual |
+| 🤖 Moltbook agents | Static (updated periodically) | Manual |
+
+---
+
+Built with Next.js + Recharts. MIT License.

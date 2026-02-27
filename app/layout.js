@@ -1,3 +1,5 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 export const metadata = {
   title: "OpenClaw Ecosystem Dashboard",
   description: "Real-time dashboard tracking the OpenClaw (Clawdbot) ecosystem — GitHub activity, npm downloads, contributors, and more.",
@@ -27,6 +29,7 @@ export default function RootLayout({ children }) {
       </head>
       <body style={{ margin: 0, padding: 0, background: "#06070b" }}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
